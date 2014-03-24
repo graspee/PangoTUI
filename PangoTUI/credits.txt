@@ -1,0 +1,11 @@
+PangoTUI by graspee
+Written in C++ with Microsoft Visual Studio 2012 Express
+Libs:
+	SDL 1.2.15
+	SDL_image
+
+Half width font (4x8) is by  Nick Rossi, from Novaterm for the C64
+8x8 font is Amstrad437 which is the original Amstrad CPC font with some place 
+substitutions and new glyphs drawn by graspee in order to more closely correspond to
+codepage 437.
+

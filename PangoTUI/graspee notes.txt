@@ -1,0 +1,26 @@
+Steps to take after adding a new class:
+
+In h file:
+
+1 #include "PangoTUI.h" under pragma once
+2 namespace PangoTUI { surrounding the class definition
+3 PANGOTUI_API between "class" and name of class
+
+In cpp file:
+
+1 using namespace PangoTUI;
+
+end
+
+.h
+#pragma once
+#include "PangoTUI.h"
+namespace PangoTUI {
+
+class PANGOTUI_API testclass {
+
+}
+
+}
+.cpp
+using namespace PangoTUI;

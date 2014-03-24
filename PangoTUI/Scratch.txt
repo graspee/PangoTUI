@@ -1,0 +1,59 @@
+some code i wrote to make custom 16x16 selectors for colour. they don't work well for colour
+(too big) but they could form the bases of a 16x16 ascii selector
+
+Area* RedPanel-- etc.
+
+RedPanel=new Area(Rectangle(32,0,16,16,true));
+	GreenPanel=new Area(Rectangle(48,0,16,16,true));
+	BluePanel=new Area(Rectangle(64,0,16,16,true));
+
+//colour grid
+	int c=0;
+	for(int y=0;y<16;y++){
+		for(int x=0;x<16;x++){
+			Uint32 c32=pe->MapRGB(c,0,0);
+			RedPanel->DrawChar(' ',0,c32,x,y);
+			c32=pe->MapRGB(0,c,0);
+			GreenPanel->DrawChar(' ',0,c32,x,y);
+			c32=pe->MapRGB(0,0,c);
+			BluePanel->DrawChar(' ',0,c32,x,y);
+			c++;
+		}
+
+	}
+
+//red
+	RedPanel->OnMausMoob= [](Area* a, Event& e)->void {
+		int x=a->SCREENXTOAREAX(e.CurrentScreenX);
+		int y=a->SCREENYTOAREAY(e.CurrentScreenY);
+		if(redcursorx>-1){
+			if(redselx==redcursorx && redsely==redcursory){
+				RedPanel->DrawCharEx(216,pe->colour_window_border,0,redcursorx,redcursory,true,true,true,false,true,false);
+			} else {
+				RedPanel->DrawCharEx(' ',0,0,redcursorx,redcursory,true,true,true,false,true,false);
+			}
+		}
+		RedPanel->DrawCharEx('x',pe->colour_window_border,0,x,y,true,true,true,false,true,false);
+		redcursorx=x;redcursory=y;
+	};
+	RedPanel->OnMausLeeb=[](Area* a,Event&e)->void {
+		if(redcursorx>-1){
+			if(redselx==redcursorx && redsely==redcursory){
+				RedPanel->DrawCharEx(216,pe->colour_window_border,0,redcursorx,redcursory,true,true,true,false,true,false);
+			} else {
+				RedPanel->DrawCharEx(' ',0,0,redcursorx,redcursory,true,true,true,false,true,false);
+			}
+			redcursorx=-1;
+		}
+	};
+	RedPanel->OnLeftClick=[](Area* a,Event&e)->void {
+		int x=a->SCREENXTOAREAX(e.CurrentScreenX);
+		int y=a->SCREENYTOAREAY(e.CurrentScreenY);	
+		if(redselx>-1){
+			RedPanel->DrawCharEx(' ',pe->colour_window_border,0,redselx,redsely,true,true,true,false,true,false);
+		}
+		redselx=x; redsely=y;
+		penred=(16*y)+x; 
+		CurrentLeftPen=pe->MapRGB(penred,pengreen,penblue);
+		RedPanel->DrawCharEx(216,pe->colour_window_border,0,x,y,true,true,true,false,true,false);
+	};

@@ -1,0 +1,13 @@
+ Area::DrawFilledRect probably flickers. We had to make it update each square you draw rather than do them all at once last because
+ the updaterect that it issues fails if your area is not the desktop and therefore 0,0 based. what it needs to do is recurse to desktop to find the rect.
+ even if it does this, will it work if the rect is partly off screen and therefore clipped?
+
+ There's a bug in the dragging. See for example the sliders in the sprite editor. the first pos to drag to is skipped the first time.
+
+
+ singlelinetext editor currently is very simple: just press keys or use backspace. change it to handle left and 
+ right cursor keys and delete and draw the cursor
+
+ do we need a keypress event? at the moment it's just keydown and keyup
+
+ change the keydown to in single line text edit to not redraw the whole control
